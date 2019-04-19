@@ -16,7 +16,9 @@ const ExamplesIfExists = ({ entry, examples }) => {
     );
 }
 
-const TermCard = ({ term }) => (
+
+
+const TermCardExtense = ({ term }) => (
     <div className={"term-card__container"}>
         <h1 className={"term-card__title-1"}>{ term.entry }</h1>
         <span className={"term-card__subtitle"}>{ term.type }</span>
@@ -32,5 +34,27 @@ const TermCard = ({ term }) => (
         </div>
     </div>
 );
+
+const TermCardSimple = ({ term }) => (
+    <div className={"term-card__container"}>
+        <h1 className={"term-card__title-1"}>{ term.acronym || term.entry }</h1>
+        <span className={"term-card__subtitle"}>{ term.type }</span>
+        {
+            term.acronym &&  <div className="term-card__content">
+            <Markdown src={term.entry} />
+            </div>
+        }
+    </div>
+);
+
+const TermCard = ({ term, simple = false }) => {
+    if(simple) {
+        return <TermCardSimple term={term}/>;
+    } 
+    
+    return <TermCardExtense term={term}/>;
+};
+    
+
 
 export default TermCard;
